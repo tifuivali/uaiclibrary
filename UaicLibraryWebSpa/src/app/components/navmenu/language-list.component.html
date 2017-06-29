@@ -1,0 +1,12 @@
+﻿<ul id="dropdown-language" class="dropdown-content">
+    <li *ngFor="let language of languages" (click)="onSelect(language.code)">
+        <a href="#!">{{language.name | translate}}</a>
+    </li>
+</ul>
+
+<li>
+    <a class="dropdown-button" href="#!" data-activates="dropdown-language">
+        {{'Language' | translate:true:[selectedLanguage.name]}}
+        <i class="material-icons right">arrow_drop_down</i>
+        </a>
+</li>

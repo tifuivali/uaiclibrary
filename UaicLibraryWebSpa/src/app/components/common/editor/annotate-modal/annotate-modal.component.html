@@ -1,0 +1,16 @@
+<modal (onDone)="modalDone()" id="{{modalId}}">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <div class="modal-content">
+                <h5>{{'AnnotateCurrentPage' | translate }}</h5>
+                <froala [froalaOptions]="froalaOptions" [froalaData]="content" (model)="onFroalaModelChanged($event)" (editorInitialized)="onEditorInitialized()">
+                </froala>
+            </div>
+            <div class="modal-footer">
+                <a id="custom-modal-ok" class="waves-effect waves-green btn">{{'Save' | translate }}</a>
+                <a id="custom-modal-close" class="waves-effect waves-green btn">{{'Close' | translate }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="custom-modal-background"></div>
+</modal>

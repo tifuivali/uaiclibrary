@@ -1,0 +1,47 @@
+<user-modal-list [users]="userLikes" [modalId]="userModalListId"></user-modal-list>
+<div *ngIf="book">
+    <div class="card horizontal">
+        <div class="card-image">
+            <img style="width: 150px; height: 175px;" width="100" height="200" src="{{book.imageUrl}}" alt="Book Image">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">{{book.name}}<i class="material-icons right">more_vert</i></span>
+                <p>{{book.description}}</p>
+                <p>
+                    <strong>{{'Category' | translate}}</strong>: {{book.bookCategory.name}}
+                </p>
+                <strong>{{'Authors' | translate}}</strong>:
+                <div *ngFor="let author of book.bookAuthors" class="chip">
+                    <img src="{{author.imageUrl}}" alt="Author Image"> {{author.name}}
+                </div>
+                <p *ngIf="book.faculty"><strong>{{'Faculty' | translate}}</strong>: {{book.faculty.name}}</p>
+                <p><strong>{{'NumberOfPages' | translate}}</strong>: {{book.numberOfPages}}</p>
+                <p> <strong>{{'PublishDate' | translate }}</strong>: {{book.publishDate | date:'shortDate'}}</p>
+                <br>
+                <p><span (click)="viewLikes()" class="chip blue force-link"><i class="material-icons">thumb_up</i> {{book.likes}} </span>
+                    <span (click)="viewDislikes()" class="chip red force-link"><i class="material-icons">thumb_down</i> {{book.dislikes}}</span>
+                    <span (click)="viewBookViews()" class="chip force-link">{{book.views}} {{'Views' | translate}}</span>
+                    <span (click)="viewBookReaders()" class="chip force-link">{{book.reads}} {{'Readers' | translate}}</span>
+                     <span class="chip">{{book.pageAnnotations}} {{'BookAnnotations' | translate}}</span>
+                </p>
+            </div>
+            <div *ngIf="showDetails && !authService.userIsAdmin" class="card-action">
+                <a class="force-link" (click)="viewBook(book)"><i class="material-icons">view_agenda</i> {{'View' | translate }}</a>
+                 <a href="{{bookDownloadUrl}}"><i class="material-icons">thumb_up</i> {{'Download' | translate }}</a>
+                <a (click)="like()" class="force-link"><i class="material-icons">thumb_up</i> {{'Like' | translate }}</a>
+                <a (click)="dislike()" class="force-link"><i class="material-icons">thumb_down</i> {{'Dislike' | translate }}</a>
+                <a (click)="showComments()" *ngIf="!enableComments" class="force-link"><i class="material-icons">comment</i> {{'ShowComments' | translate }}</a>
+                <a (click)="showComments()" *ngIf="enableComments" class="force-link"><i class="material-icons">comment</i> {{'HideComments' | translate }}</a>
+            </div>
+            <div *ngIf="showDetails && authService.userIsAdmin" class="card-action">
+                <a class="force-link" (click)="viewBook(book)"><i class="material-icons">view_agenda</i> {{'View' | translate }}</a>
+                 <a href="{{bookDownloadUrl}}"><i class="material-icons">thumb_up</i> {{'Download' | translate }}</a>
+                <a (click)="editBook()" class="force-link"><i class="material-icons">mode_edit</i> {{'Edit' | translate }}</a>
+            </div>
+            <div>
+                <book-comments [book]="book" [enable]="enableComments"></book-comments>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+<div id="validation-errors">
+    <div class="alert alert-danger" *ngFor="let error of errors">
+        <strong>{{'Error' | translate }}! </strong>{{error.errorMessage | translate:parameters }}
+    </div>
+</div>

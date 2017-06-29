@@ -1,0 +1,14 @@
+<div class="select-wrapper">
+    <a *ngIf="!selected" class="dropdown-button btn" [class.active]='isActive' (click)="onClick()">{{label | translate}}
+     <i class="material-icons right">arrow_drop_down</i>
+    </a>
+
+    <a *ngIf="selected" class="dropdown-button btn" [class.active]='isActive' (click)="onClick()">{{selected.text | translate}}
+     <i class="material-icons right">arrow_drop_down</i>
+    </a>
+
+    <!-- Dropdown Structure -->
+    <ul [class.active]="isActive" class='dropdown-content' [style]='isActive ? activeStyle : inactiveStyle'>
+        <li *ngFor="let item of items" [style]="isCurrentItemSelected(item) ? activeItemStyle : inactiveItemStyle"><a class="force-link" (click)="onSelect(item)">{{item.text}}</a></li>
+    </ul>
+</div>

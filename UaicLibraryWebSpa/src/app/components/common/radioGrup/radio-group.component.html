@@ -1,0 +1,4 @@
+<div *ngFor="let option of options">
+    <input [id]="option" #r type="radio" name="radioButton" [value]="option" (change)="onChange(r.value)">
+    <label [for]="option">{{option | translate}}</label>
+<div>

@@ -1,0 +1,46 @@
+<nav class="nav-color2">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <a [routerLink]="['/']" class="breadcrumb force-link">{{'Home' | translate}}</a>
+      <a class="breadcrumb">{{'Administration' | translate }}</a>
+    </div>
+  </div>
+</nav>
+
+<div style="height: 25px;"></div>
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3">
+        <a (click)="changeTab(1)" [class.active]="tabNumber == 1" class="force-link">{{'Book' | translate}}</a>
+        <div *ngIf="tabNumber == 1" style="width: 250px;" class="indicator"></div>
+      </li>
+      <li class="tab col s3">
+        <a (click)="changeTab(2)" [class.active]="tabNumber == 2" class="force-link">{{'Author' | translate}}</a>
+         <div *ngIf="tabNumber == 2" style="width: 250px;" class="indicator"></div>
+      </li>
+      <li class="tab col s3">
+        <a (click)="changeTab(3)" [class.active]="tabNumber == 3" class="force-link">{{'Faculty' | translate}}</a>
+         <div *ngIf="tabNumber == 3" style="width: 250px;" class="indicator"></div>
+      </li>
+      <li class="tab col s3">
+        <a (click)="changeTab(4)" [class.active]="tabNumber == 4" class="force-link">{{'ChangeHomePageContent' | translate}}</a>
+         <div *ngIf="tabNumber == 4" style="width: 250px;" class="indicator"></div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="tabNumber == 1" id="add-book" class="col s12">
+    <book-administration></book-administration>
+  </div>
+  <div *ngIf="tabNumber == 2" id="add-author" class="col s12">
+    <author-administration></author-administration>
+  </div>
+  <div *ngIf="tabNumber == 3" id="add-faculty" class="col s12">
+    <faculty-administration></faculty-administration>
+  </div>
+  <div *ngIf="tabNumber == 4" id="add-home-content">
+    <homeContent-administration></homeContent-administration>
+  </div>
+</div>

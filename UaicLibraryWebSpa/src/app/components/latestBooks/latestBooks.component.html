@@ -1,0 +1,14 @@
+<nav class="nav-color2">
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a class="breadcrumb">{{'Home' | translate}}</a>
+            <a class="breadcrumb">{{'LatestBooks' | translate }}</a>
+            <a (click)="refreshComponent()" class="waves-effect waves-light btn right button-refresh force-link"><i style="line-height: 35px" class="material-icons left">replay</i>{{'Refresh' | translate }}</a>
+        </div>
+    </div>
+</nav>
+
+<div class="col s12 m7">
+    <h6 *ngIf="!latestBooks">{{'NoData' | translate}}</h6>
+    <book *ngFor="let book of latestBooks" [book]="book"></book>
+</div>

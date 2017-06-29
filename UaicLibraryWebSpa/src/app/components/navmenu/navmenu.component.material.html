@@ -1,0 +1,45 @@
+<div class="navbar-fixed">
+    <nav class="nav-color">
+        <div class="nav-wrapper">
+            <a [routerLink]="['/home']" class="brand-logo">
+                <img width="70" height="50" class="img-rounded " src="assets/images/logo.svg" alt="Logo" />
+                <span class="logo-text">{{'AppName' | translate }}</span> </a>
+            <ul id="nav-mobile" class="left-side-menu hide-on-med-and-down">
+                <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/home']">
+                    <i class="mdi-action-home left"></i> {{'Home' | translate}}
+                </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/latestBooks']">
+                    <i class="mdi-action-home left"></i> {{'LatestBooks' | translate}}
+                </a>
+                </li>
+                <li *ngIf="authService.userIsLogged" [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/books']">
+                        <i class="material-icons left">perm_identity</i> {{'Books' | translate}}
+                    </a>
+                </li>
+                <li *ngIf="authService.userIsAdmin" [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/administration']">
+                       <i class="material-icons left">playlist_add</i> {{'Administration' | translate}}
+                    </a>
+                </li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li *ngIf="!authService.userIsLogged">
+                    <a [routerLink]="['/signup']"><i class="material-icons left">perm_identity</i>{{'SignUp' | translate}}</a>
+                </li>
+                <li *ngIf="!authService.userIsLogged"><a [routerLink]="['/login']"><i class="material-icons left">perm_identity</i>{{'LogIn' | translate}} </a></li>
+                <li *ngIf="authService.userIsLogged && authService.userRole == 'Student'"><a [routerLink]="['/studentaccount']"><i class="material-icons left">perm_identity</i>{{'MyAccount' | translate}} </a></li>
+                <li *ngIf="authService.userIsLogged && authService.userRole == 'Professor'"><a [routerLink]="['/professoraccount']"><i class="material-icons left">perm_identity</i>{{'MyAccount' | translate}} </a></li>
+                <li *ngIf="authService.userIsLogged"><a htef="!#" (click)="onLogout()"><i class="material-icons left">settings_power</i>{{'LogOut' | translate}} </a></li>
+                <li>
+                    <a>
+                        <language-list></language-list>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

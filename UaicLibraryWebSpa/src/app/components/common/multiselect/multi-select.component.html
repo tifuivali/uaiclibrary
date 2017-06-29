@@ -1,0 +1,9 @@
+<div class="select-wrapper"><span (click)="open()" class="caret">▼</span>
+    <input (click)="open()" type="text" class="select-dropdown" readonly="true" [class.active]="isActive" [value]="title">
+    <ul id="select-options-982489e0-79e9-683f-3d16-240c43e670e7" class="dropdown-content select-dropdown" style="width: 100%; position: absolute; top: 0px; left: 0px; opacity: 1;"
+        [style.display]="isActive ? 'block' : 'none'">
+        <li class="disabled"><span>{{title}}</span></li>
+        <!--<li >-->
+          <li *ngFor="let item of data" (click)="onClick(item)" [class.active]="item.isSelected">  <span><input type="checkbox" [(ngModel)]="item.isSelected" ><label></label>{{item.name}}</span></li>
+    </ul>
+</div>

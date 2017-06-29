@@ -1,0 +1,78 @@
+<div class="container">
+    <div [hidden]="submitted">
+        <h3>{{'Register'| translate}}</h3>
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <div class="form-group>">
+                <radio-group [options]="userTypeOptions" (onButtonSelected)="onUserTypeChange($event)"></radio-group>
+            </div>
+            <div class="form-group">
+                <label for="firstName">{{'FirstName' | translate}}</label>
+                <input type="text" class="form-control" id="firstName" required [(ngModel)]="model.FirstName" name="firstName" #firstName="ngModel">
+                <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+                    {{'FirstNameIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname">{{'LastName' | translate}}</label>
+                <input type="text" class="form-control" id="lastName" required [(ngModel)]="model.LastName" name="lastname" #lastName="ngModel">
+                <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+                    {{'LastNameIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="year">{{'FacultyYear' | translate}}</label>
+                <input type="number" min='1' max='3' class="form-control" id="year" required [(ngModel)]="model.Year" name="year" #year="ngModel">
+                <div [hidden]="year.valid || year.pristine" class="alert alert-danger">
+                    {{'FacultyYearIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="matricolNumber">{{'MatricolNumber' | translate}}</label>
+                <input type="text" class="form-control" id="matricolNumber" required [(ngModel)]="model.MatricolNumber" name="matricolNumber"
+                    #matricolNumber="ngModel">
+                <div [hidden]="matricolNumber.valid || matricolNumber.pristine" class="alert alert-danger">
+                    {{'MatricolNumberIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">{{'Email' | translate}}</label>
+                <input type="email" class="form-control" id="email" 
+                       required [(ngModel)]="model.Email"                   
+                       name="email"
+                       #email="ngModel">
+                <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                    {{'EmailIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="faculty">{{'Faculty' | translate}}</label>
+                <multi-select [(data)]="faculties" label="{{'MultiSelectFacultyLabel' | translate}}"></multi-select>
+            </div>
+            <div class="form-group">
+                <label for="password">{{'Password' | translate}}</label>
+                <input #pass type="password" 
+                       class="form-control" id="password" 
+                       required [(ngModel)]="model.Password" 
+                       minlength="6"
+                       maxlength="32"
+                       name="password" #password="ngModel">
+                <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                    {{'PasswordIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">{{'ConfirmPassword' | translate}}</label>
+                <input type="password" 
+                       class="form-control" id="confirmPassword" 
+                       required [(ngModel)]="model.ConfirmPassword" 
+                       validateEqual="password"
+                       name="confirmPassword" #cp #confirmPassword="ngModel">
+                <div [hidden]="pass.value == cp.value" class="alert alert-danger">
+                    {{'ConfirmPasswordNotMatch' | translate}}
+                </div>
+            </div>
+            <validation-errors [errors]="errors"></validation-errors>
+            <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">{{'Submit' | translate}}</button>
+        </form>
+    </div>
+</div>

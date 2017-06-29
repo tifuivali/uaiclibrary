@@ -1,0 +1,115 @@
+<modal modalOkId="profile-header-modal-ok" modalCloseId="profile-header-modal-close" id="upload-image-modal">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <div class="modal-content">
+                <h5>{{'ChangeBookImage' | translate}}</h5>
+                <single-file-uploader (onComplette)="uploadBookImageDone($event)" [url]="uploadBookImageUrl"></single-file-uploader>
+            </div>
+            <div class="modal-footer">
+                <a id="profile-header-modal-ok" class="waves-effect waves-green btn">{{'Ok' | translate }}</a>
+                <a id="profile-header-modal-close" class="waves-effect waves-green btn">{{'Close' | translate }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="custom-modal-background"></div>
+</modal>
+<modal  modalOkId="profile-header-modal-ok-2" modalCloseId="profile-header-modal-close-2" id="upload-modal-content">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <div class="modal-content">
+                <h5>{{'ChangeBookImage' | translate}}</h5>
+                <single-file-uploader (onComplette)="uploadBookContent($event)" [url]="uploadBookContentUrl"></single-file-uploader>
+            </div>
+            <div class="modal-footer">
+                <a id="profile-header-modal-ok-2" class="waves-effect waves-green btn">{{'Ok' | translate }}</a>
+                <a id="profile-header-modal-close-2" class="waves-effect waves-green btn">{{'Close' | translate }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="custom-modal-background"></div>
+</modal>
+<div class="container">
+    <div>
+        <h5 *ngIf="this.bookId <= 0">{{'AddBook'| translate}}</h5>
+        <h5 *ngIf="this.bookId > 0">{{'EditBook'| translate}}</h5>
+        <div *ngIf="this.bookId > 0" class="row">
+            <a (click)="removeBook()" class="btn red force-link right">{{'RemoveBook' | translate}}</a>
+        </div>
+        <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+            <span>{{'BookImage' | translate}}</span><br><br>
+            <img [src]="model.imageUrl" style="width: 200px;height: 200px;" alt="BookImage">
+            <br>
+            <a (click)="updateBookImage()" style="margin-bottom: 20px;" class="btn force-link"><i class="material-icons">loop</i>{{'ChangeImage' | translate }}</a>
+            <div class="form-group">
+                <label for="isbn">{{'Isbn' | translate}}</label><br>
+                <input type="text" class="form-control" id="isbn" required [(ngModel)]="model.isbn" name="isbn" #isbn="ngModel">
+                <div [hidden]="isbn.valid || isbn.pristine" class="alert alert-danger">
+                    {{'IsbnIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">{{'Name' | translate}}</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="model.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    {{'NameIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">{{'Description' | translate}}</label>
+                <input type="text" class="form-control" id="description" [(ngModel)]="model.description" name="description" #description="ngModel">
+                <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+                    {{'DescriptionIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="numberOfPages">{{'NumberOfPages' | translate}}</label>
+                <input type="number" min='1' max='500000' class="form-control" id="numberOfPages" required [(ngModel)]="model.numberOfPages"
+                    name="numberOfPages" #numberOfPages="ngModel">
+                <div [hidden]="numberOfPages.valid || numberOfPages.pristine" class="alert alert-danger">
+                    {{'NumberOfPagesIsRequired' | translate}}
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="bookContent">{{'BookFile' | translate}}</label>
+                <input type=text class="form-control" id="bookContent" required [(ngModel)]="model.bookUrl"
+                    name="bookContent" #bookContent="ngModel">
+                 <a (click)="updateBookFile()" class="btn force-link"><i class="material-icons">loop</i>{{'ChangeFile' | translate }}</a>
+                 <br><br>
+                <div [hidden]="bookContent.valid || bookContent.pristine" class="alert alert-danger">
+                    {{'BookFileIsRequired' | translate}}
+                </div>
+            </div>
+            <!-- BookCategory -->
+            <div style="margin-bottom: 20px;" class="form-group">
+                <label>{{'ChooseABookCategory' | translate}}</label>
+                <dropdown [selected]="selectedBookCategoryItem" class="form-control" [label]="'BookCategory' | translate" [items]="bookCategoryItems"
+                    (onChange)="selectBookCategory($event)"></dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="publishDate">{{'PublishDate' | translate}}</label>
+                <input [(ngModel)]="model.publishDate" date-format="MM/DD/YYYY" class="form-control" name="publishDate" id="publishDate"
+                    ng2-datetime-picker date-only="true" />
+                <!--<div [hidden]="publishDate.valid || publishDate.pristine" class="alert alert-danger">
+                    {{'PublishDateIsRequired' | translate}}
+                </div>-->
+            </div>
+
+            <!-- Faculty -->
+            <div style="margin-bottom: 20px;" class="form-group">
+                <label>{{'ChooseAFaculty' | translate}}</label>
+                <dropdown [selected]="selectedBookFacultyItem" class="form-control" [label]="'Faculty' | translate" [items]="facultiesDropDownItems"
+                    (onChange)="selectFaculty($event)"></dropdown>
+            </div>
+
+            <div class="form-group">
+                <label>{{'Author' | translate}}</label>
+                <multi-select [(data)]="authorsMultiSelectItems" label="{{'ChooseAnAuthor' | translate}}"></multi-select>
+            </div>
+            <!-- BookUrl -->
+
+            <validation-errors [errors]="errors"></validation-errors>
+            <button type="submit" class="btn btn-success" [disabled]="!bookForm.form.valid">{{'Submit' | translate}}</button>
+        </form>
+    </div>
+</div>

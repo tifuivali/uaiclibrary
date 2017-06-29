@@ -1,0 +1,7 @@
+<ul *ngIf="enable" class="collection">
+    <comment (onLike)="onCommentLike($event)" (onDislike)="onCommentDislike($event)" (onRemove)="removeComment($event)" *ngFor="let bookComment of bookComments"
+        [comment]="bookComment" [enableRemove]="bookComment.user.id == currentUserId">
+    </comment>
+    <hr>
+    <new-comment (onAddComment)="onAddComment($event)"></new-comment>
+</ul>

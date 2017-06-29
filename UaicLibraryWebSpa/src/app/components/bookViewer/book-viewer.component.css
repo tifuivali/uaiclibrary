@@ -1,0 +1,17 @@
+.content-viewer {
+    margin-top: 25px;
+    border: 3px solid lightseagreen;
+}
+
+
+.content-viewer-header{
+    background-color: lightseagreen;
+    color: white;
+    display: inline-flex;
+    width: 100%;
+    padding: 10px;
+}
+
+.btn-margin {
+    margin-left: 10px;
+}

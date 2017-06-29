@@ -1,0 +1,8 @@
+<li class="collection-item avatar">
+    <img *ngIf="comment.user" src="{{comment.user.imageUrl}}" alt="User" class="circle">
+    <span *ngIf="comment.user" class="title">{{comment.user.firstName}} {{comment.user.lastName}}</span>
+    <div class="form-group">
+        <input type="text" placeholder="{{'InsertComment' | translate}}" class="form-control" id="text" required [(ngModel)]="comment.text" name="text" #text="ngModel">
+    </div>
+    <button [disabled]="comment.text.length <= 0" (click)="addComment()" class="btn btn-success">{{'Add' | translate}}</button>
+</li>

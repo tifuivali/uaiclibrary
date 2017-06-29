@@ -1,0 +1,42 @@
+<nav class="nav-color2">
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a [routerLink]="['/']" class="breadcrumb force-link">{{'Home' | translate}}</a>
+            <a class="breadcrumb">{{'Books' | translate }}</a>
+            <a (click)="refreshComponent()" class="waves-effect waves-light btn right button-refresh force-link"><i style="line-height: 35px" class="material-icons left">replay</i>{{'Refresh' | translate }}</a>
+        </div>
+    </div>
+</nav>
+<div>
+    <ul class="collection with-header">
+        <li class="collection-header">
+            <div class="row">
+                <h5 class="col s2">{{'FilterBy' | translate }}:</h5>
+                <div class="input-field col s3">
+                    <input placeholder="{{'Title' | translate}}" [(ngModel)]="bookFilter.title"  id="title" name="title" type="text" class="validate">
+                </div>
+                <div class="input-field col s3">
+                    <multi-select [(data)]="bookFilter.categories" label="{{'MultiSelectBookCategoryLabel' | translate}}"></multi-select>
+                </div>
+                <div class="input-field col s3">
+                    <multi-select [(data)]="bookFilter.authors" label="{{'MultiSelectBookAuthorsLabel' | translate}}"></multi-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                </div>
+                <div class="input-field col s3">
+                    <multi-select [(data)]="bookFilter.faculties" label="{{'MultiSelectBookFacultiesLabel' | translate}}"></multi-select>
+                </div>
+                <div class="input-field col s2">
+                    <button class="btn btn-success" (click)="filter()" value="{{'Filter' | translate}}">{{'Filter' | translate}}</button>
+                </div>
+            </div>
+        </li>
+        <li *ngIf="!bookData.books || !bookData.books.length > 0">{{'NoDataFound' | translate}}</li>
+        <li *ngFor="let book of bookData.books" class="collection-item">
+            <book [book]="book" [showDetails]="true"></book>
+        </li>
+    </ul>
+    <pagination [paginationData]="bookData" (onPageSizeChanged)="onPageSizeChanged($event)" (onPageChanged)="onPageChanged($event)"></pagination>
+</div>

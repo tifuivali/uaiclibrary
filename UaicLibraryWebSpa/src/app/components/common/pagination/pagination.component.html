@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col s6">
+    <ul *ngIf=" pages.length> 0" class="pagination">
+      <li (click)="back()" [class.disabled]="startPage == 1"><a class="force-link"><i class="material-icons">chevron_left</i></a></li>
+      <li *ngFor="let p of pages" (click)="onPage(p)" [class.active]="p == paginationData.page"><a class="force-link">{{p}}</a></li>
+      <li (click)="next()" [class.disabled]="endPage >= paginationData.numberOfPages" class="waves-effect"><a class="force-link"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+  </div>
+  <div class="input-field col s2">
+    <input [(ngModel)]="modelPage" (ngModelChange)="onSetPage($event)" min="1" [max]="paginationData.numberOfPages" placeholder="{{'InsertAPage' | translate}}" id="pageno" name="pageno" type="number">
+  </div>
+  <div style="padding: 15px;" class="col s2">
+    <span>{{paginationData.page}} {{'Of' | translate}} {{paginationData.numberOfPages}}</span>
+  </div>
+  <div *ngIf="showPageSizes" class="col s2">
+    <dropdown [label]="'PageSize' | translate" [items]="pageSizeItems" (onChange)="setPageSize($event)"></dropdown>
+</div>

@@ -1,0 +1,72 @@
+<annotate-modal [content]="bookPageAnnotationContent" (onSaveContent)="saveAnnotation($event)" [modalId]="annotateModalId"></annotate-modal>
+<nav class="nav-color2">
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a [routerLink]="['/']" class="breadcrumb force-link">{{'Home' | translate}}</a>
+            <a [routerLink]="['/books']" class="breadcrumb force-link">{{'Books' | translate }}</a>
+            <a class="breadcrumb">{{'View' | translate }}</a>
+        </div>
+    </div>
+</nav>
+
+<div class="col s12 m7">
+</div>
+<div class="content-viewer">
+    <div class="row content-viewer-header">
+        <div class="left-section col s3">
+            <span *ngIf="book">{{book.name}}</span>
+        </div>
+        <!--<div class="col s9 right">
+        <button [disabled]="bookIsMarkedAsRead" class="btn btn-margin" (click)="markBookAsRead()">{{'MarkAsRead' | translate}}</button>
+         <button class="btn btn-margin" (click)="storeUserBookPage()">{{'StoreThisPage' | translate}}</button>
+         <button class="btn btn-margin" (click)="goAnnotateMode()">{{'goAnnotateMode' | translate}}</button>
+        </div>-->
+        <div class="col s9">
+            <div class="right">
+                <span *ngIf="lastSavedPage.page > 0"><strong>{{'LastSavedPage' | translate}}:</strong> {{lastSavedPage.page}}</span>
+                <span style="margin-left: 10px;" *ngIf="lastSavedPage.page > 0">
+                    <strong>{{'Date' | translate }}:</strong>
+                     {{lastSavedPage.date | date:'shortDate' }}
+                </span>
+                <span (click)="goToLastSavedPage()" style="margin-left: 10px; color:yellow" *ngIf="lastSavedPage.page > 0">
+                    <strong class="force-link">{{'Open' | translate}}</strong>
+                </span>
+            </div>
+            <div class="fixed-action-btn toolbar">
+                <a class="btn-floating btn-large">
+            <i class="large material-icons">mode_edit</i>
+            </a>
+                <ul>
+                    <li class="waves-effect waves-light force-link" (click)="storeUserBookPage()">
+                        <a><i class="material-icons">note_add</i> {{'StorePage' | translate}}</a>
+                    </li>
+                    <li class="waves-effect waves-light force-link" (click)="annotatePage()">
+                        <a><i class="material-icons">mode_edit</i>{{'AnnotatePage' | translate }}</a>
+                    </li>
+                    <li *ngIf="!lockEditFromClick" class="waves-effect waves-light force-link" (click)="lockEditOnClick()">
+                        <a><i class="material-icons">lock_outline</i>{{'LockEditOnClick' | translate}}</a>
+                    </li>
+                    <li *ngIf="lockEditFromClick" class="waves-effect waves-light force-link" (click)="unlockEditOnClick()">
+                        <a><i class="material-icons">lock_open</i> {{'UnlockEditOnClick' | translate}}</a>
+                    </li>
+                    <li *ngIf="!bookIsMarkedAsRead" (click)="markBookAsRead()" class="waves-effect waves-light force-link">
+                        <a><i class="material-icons">done</i> {{'MarkAsRead' | translate}}</a>
+                    </li>
+                    <li *ngIf="bookIsMarkedAsRead" class="waves-effect waves-light force-link">
+                        <a><i class="material-icons">done</i> {{'BookIsReaded' | translate}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="overflow: auto;" (click)="viewContainerOnClick()" id="holder"></div>
+</div>
+<div class="row">
+    <div class="col s9">
+        <pagination [paginationData]="paginationData" [showPageSizes]="false" (onPageChanged)="onPageChanged($event)"></pagination>
+    </div>
+    <div class="input-field col s2">
+        <input [(ngModel)]="scrollSize" (ngModelChange)="onScrollSet($event)" min="1.0" [max]="5.0" placeholder="{{'InsertScroll' | translate}}"
+            id="scroll" name="scroll" type="number">
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<modal modalOkId="profile-header-modal-ok" modalCloseId="profile-header-modal-close" id="author-upload-image-modal">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <div class="modal-content">
+                <h5>{{'ChangeAuthorAvatar' | translate}}</h5>
+                <single-file-uploader (onComplette)="uploadAvatarImageDone($event)" [url]="uploadAuthorAvatarUrl"></single-file-uploader>
+            </div>
+            <div class="modal-footer">
+                <a id="profile-header-modal-ok" class="waves-effect waves-green btn">{{'Ok' | translate }}</a>
+                <a id="profile-header-modal-close" class="waves-effect waves-green btn">{{'Close' | translate }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="custom-modal-background"></div>
+</modal>
+<div class="container">
+    <div>
+        <h5 *ngIf="this.model.id <= 0">{{'AddAuthor'| translate}}</h5>
+        <h5 *ngIf="this.model.id > 0">{{'EditAuthor'| translate}}</h5>
+        <div *ngIf="this.model.id > 0" class="row">
+            <a (click)="removeAuthor()" class="btn red force-link right">{{'RemoveAuthor' | translate}}</a>
+        </div>
+        <form (ngSubmit)="onSubmit()" #authorForm="ngForm">
+            <span>{{'AuthorImage' | translate}}</span><br><br>
+            <img [src]="model.imageUrl" style="width: 200px;height: 200px;" alt="BookImage">
+            <br>
+            <a (click)="updateAuthorImage()" style="margin-bottom: 20px;" class="btn force-link"><i class="material-icons">loop</i>{{'ChangeImage' | translate }}</a>
+            <div class="form-group">
+                <label for="name">{{'Name' | translate}}</label><br>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="isbn" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    {{'NameIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="detailsPageUrl">{{'DetailsPageUrl' | translate}}</label>
+                <input type="text" class="form-control" id="detailsPageUrl" [(ngModel)]="model.detailsPageUrl" name="detailsPageUrl" #detailsPageUrl="ngModel">
+                <div [hidden]="detailsPageUrl.valid || detailsPageUrl.pristine" class="alert alert-danger">
+                    {{'DetailsPageUrlsRequired' | translate}}
+                </div>
+            </div>
+
+            <validation-errors [errors]="errors"></validation-errors>
+            <button type="submit" class="btn btn-success">{{'Submit' | translate}}</button>
+        </form>
+    </div>
+</div>

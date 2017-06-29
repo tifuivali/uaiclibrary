@@ -1,0 +1,114 @@
+<!-- Modals-->
+<modal (onDone)="modalDone()" id="edit-about-modal">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <div class="modal-content">
+                <h5>{{'AboutEditorTitle' | translate}}</h5>
+                <textarea #editor style="height: 250px" rows="20" [(ngModel)]="model.about" cols="100"></textarea>
+            </div>
+            <div class="modal-footer">
+                <a id="custom-modal-ok" class="waves-effect waves-green btn">Ok</a>
+                <a id="custom-modal-close" class="waves-effect waves-green btn">{{'Close' | translate }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="custom-modal-background"></div>
+</modal>
+
+<div *ngIf="model">
+    <div id="profile-page" class="section">
+        <!-- profile-page-header -->
+        <user-profile-header [fullName]="model.fullName" role="Student" [readedBooks]="model.readedBooks" [openedBooks]="model.opennedBooks"
+            [editedBooks]="model.editedBooks" [avatarUrl]="model.imageUrl" [email]="model.email" [faculties]="model.faculties">
+        </user-profile-header>
+        <!--/ profile-page-header -->
+
+        <!-- profile-page-content -->
+        <div id="profile-page-content" class="row">
+            <!-- profile-page-sidebar-->
+            <div id="profile-page-sidebar" class="col s12 m4">
+                <!-- Profile About  -->
+                <a (click)="onAboutEditClick()" class="btn-floating waves-effect waves-light right"><i class="material-icons">mode_edit</i></a>
+                <div class="card light-blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">{{'AboutMe' | translate}}</span>
+                        <p>{{model.about}}</p>
+                    </div>
+                </div>
+                <!-- Profile About  -->
+
+                <!-- Profile Last Openned  -->
+                <ul id="profile-page-about-details" class="collection">
+                    <li style="background-color: #03A9F4; color: white;" class="collection-item">{{'LastOpennedBooks' | translate }}</li>
+                    <li *ngFor="let book of lastOpennedBooks" class="collection-item avatar">
+                        <img src="{{book.imageUrl}}" alt="bookImage" class="circle">
+                        <p>{{book.name}}</p>
+                        <button (click)="viewBook(book)" class="btn button-yellow">{{'View' | translate}}</button>
+                    </li>
+                </ul>
+                <!--/ Profile About Details  -->
+
+                <!-- Profile About  -->
+                <div class="card amber darken-2">
+                    <div class="card-content white-text center-align">
+                        <p class="card-title"><i class="mdi-social-group-add"></i> 3685</p>
+                        <p>Followers</p>
+                    </div>
+                </div>
+                <!-- Profile About  -->
+            </div>
+            <!-- profile-page-sidebar-->
+
+            <!-- profile-page-wall -->
+            <div id="profile-page-wall" class="col s12 m8">
+                <!-- profile-page-wall-posts -->
+                <div id="profile-page-wall-posts" class="row">
+                    <div class="col s12">
+                        <!-- medium -->
+                        <div id="profile-page-wall-post" class="card">
+                            <div class="card-profile-title">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <!-- Profile Last Openned  -->
+                                        <ul id="profile-page-about-details" class="collection">
+                                            <li style="background-color: #03A9F4; color: white;" class="collection-item">{{'LastAnnotatedBooks' | translate }}</li>
+                                            <!--<li *ngFor="let bookPageAnnotation of lastAnnotatationsBooks" class="collection-item avatar">
+                                                <img src="{{bookPageAnnotation.book.imageUrl}}" alt="bookImage" class="circle">
+                                                <div class="row">
+                                                    <p>{{bookPageAnnotation.book.name}}</p>
+                                                    <p>{{bookPageAnnotation.page}}</p>
+                                                    <button (click)="viewBook(book)" class="btn button-yellow">{{'View' | translate}}</button>
+                                                </div>
+                                            </li>-->
+                                            <table class="bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'Image' | translate}}</th>
+                                                        <th>{{'Name' | translate}}</th>
+                                                        <th>{{'Page' | translate}}</th>
+                                                        <th>{{'Action' | translate}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let bookPageAnnotation of lastAnnotatationsBooks">
+                                                        <td><img style="width: 100px;height: 100px;" src="{{bookPageAnnotation.book.imageUrl}}" alt="bookImage" class="circle"></td>
+                                                        <td>{{bookPageAnnotation.book.name}}</td>
+                                                        <td>{{bookPageAnnotation.page}}</td>
+                                                        <td><button (click)="viewAnnotation(bookPageAnnotation)" class="btn">{{'View' | translate}}</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ profile-page-wall-posts -->
+
+                </div>
+                <!--/ profile-page-wall -->
+
+            </div>
+        </div>
+    </div>

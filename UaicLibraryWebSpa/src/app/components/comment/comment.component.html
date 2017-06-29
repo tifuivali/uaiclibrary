@@ -1,0 +1,17 @@
+<li *ngIf="comment" class="collection-item avatar">
+  <img *ngIf="comment.user" src="{{comment.user.imageUrl}}" alt="User" class="circle">
+  <span *ngIf="comment.user" class="title">{{comment.user.firstName}} {{comment.user.lastName}}</span>
+  <p>
+    <span style="font: menu; color: darkgray">{{comment.date | date:'short'}}</span>
+    <br>
+    <span>{{comment.text}}</span>
+    <br>
+    <span class="chip blue"><i class="material-icons">thumb_up</i> {{comment.likes}} </span>
+    <span class="chip red"><i class="material-icons">thumb_down</i> {{comment.dislikes}}</span>
+  </p>
+  <div class="secondary-content">
+    <a (click)="like()" style="color: #00B39E" class="force-link"><i class="material-icons">thumb_up</i></a>
+    <a (click)="dislike()" style="color: #FFAB40" class="force-link"><i class="material-icons">thumb_down</i></a>
+    <a *ngIf="enableRemove" (click)="remove()" style="color: #F44336" class="force-link"><i class="material-icons">delete</i></a>
+  </div>
+</li>

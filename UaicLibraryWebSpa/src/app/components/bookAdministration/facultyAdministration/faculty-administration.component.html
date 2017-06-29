@@ -1,0 +1,28 @@
+<div class="container">
+    <div>
+        <h5 *ngIf="this.model.id <= 0">{{'AddFaculty'| translate}}</h5>
+        <h5 *ngIf="this.model.id > 0">{{'EditFaculty'| translate}}</h5>
+        <div *ngIf="this.model.id > 0" class="row">
+            <a (click)="removeFaculty()" class="btn red force-link right">{{'RemoveFaculty' | translate}}</a>
+        </div>
+        <form (ngSubmit)="onSubmit()" #facultyForm="ngForm">
+            <div class="form-group">
+                <label for="name">{{'Name' | translate}}</label><br>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="isbn" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    {{'NameIsRequired' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">{{'Address' | translate}}</label>
+                <input type="text" class="form-control" id="address" [(ngModel)]="model.address" name="address" #address="ngModel">
+                <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+                    {{'AddressIsRequired' | translate}}
+                </div>
+            </div>
+
+            <validation-errors [errors]="errors"></validation-errors>
+            <button type="submit" class="btn btn-success">{{'Submit' | translate}}</button>
+        </form>
+    </div>
+</div>
